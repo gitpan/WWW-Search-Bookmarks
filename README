@@ -1,0 +1,31 @@
+NAME
+    WWW::Search::Bookmarks - Search a Bookmarks server via SOAP
+
+SYNOPSIS
+      use WWW::Search;
+      my $search = WWW::Search->new('Bookmarks');
+      $search->native_query('world of warcraft linux');
+      while (my $result = $search->next_result() ) {
+        print $result->url, "\n";
+        print $result->description, "\n";
+        print "tags: ".join(' - ', @{$result->{tags}})."\n";
+      }
+
+DESCRIPTION
+    This class is an Bookmarks specialization of WWW::Search. It handles
+    searching a Bookmarks server http://bookmarks.socklabs.com.com/ using
+    its XMLRPC API http://bookmarks.socklabs.com/docs/api.
+
+    All interaction should be done through WWW::Search objects.
+
+    This module uses XMLRPC::Lite and XML::Simple to do all the dirty work.
+
+AUTHOR
+    Nick Gerakines <nick@socklabs.com>
+
+COPYRIGHT
+    Copyright (C) 2005, Nick Gerakines
+
+    This module is free software; you can redistribute it or modify it under
+    the same terms as Perl itself.
+
