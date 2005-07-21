@@ -11,32 +11,46 @@ use vars qw(@ISA $VERSION);
 no warnings qw(redefine);
 
 @ISA = qw(WWW::Search);
-$VERSION = "0.1";
+$VERSION = "0.20";
 
 =head1 NAME
 
-WWW::Search::Bookmarks - Search a Bookmarks server via SOAP
+WWW::Search::Bookmarks - Search a Bookmarks server via XMLRPC
 
 =head1 SYNOPSIS
 
   use WWW::Search;
-  my $search = WWW::Search->new('Bookmarks');
+  my $search = WWW::Search->new(
+    'Bookmarks',
+    server => 'http://bookmarks.socklabs.com/'
+  );
   $search->native_query('world of warcraft linux');
   while (my $result = $search->next_result() ) {
     print $result->url, "\n";
     print $result->description, "\n";
-    print "tags: ".join(' - ', @{$result->{tags}})."\n";
+    print join(' - ', @{$result->{tags}})."\n";
   }
 
 =head1 DESCRIPTION
 
 This class is an Bookmarks specialization of WWW::Search. It handles
-searching a Bookmarks server F<http://bookmarks.socklabs.com.com/> using its
-XMLRPC API  F<http://bookmarks.socklabs.com/docs/api>.
+searching a Bookmarks server F<http://bookmarks.socklabs.com/> using its
+XMLRPC interface F<http://bookmarks.socklabs.com/docs/api>.
 
-All interaction should be done through WWW::Search objects.
+This class exports no public interface; all interaction should be done through
+L<WWW::Search> objects.
 
-This module uses XMLRPC::Lite and XML::Simple to do all the dirty work.
+=head1 NOTES
+
+Because the search data is raw xml, this module uses L<XMLRPC::Lite> and
+L<XML::Simple> for the majority of the hard work.
+
+In addition to returning a L<WWW::SearchResult> object, this package will also
+provide tags as an array of tags associated with a url.
+
+Please note that searches may possibly return duplicates due to the contectual
+searching of description fields and url tags. Multiple users may bookmark and
+tag a url in similar ways, which could lead to confusion in search results.
 
 =cut
 

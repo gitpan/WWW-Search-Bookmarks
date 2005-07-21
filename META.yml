@@ -1,12 +1,12 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         WWW-Search-Bookmarks
-version:      0.01
+version:      0.20
 version_from: Bookmarks.pm
 installdirs:  site
 requires:
     XMLRPC::Lite:                  0.60
-    XML::Simple                    2.14
+    XML::Simple:                   2.14
     Test::More:                    0.01
     WWW::Search:                   2.35
 
